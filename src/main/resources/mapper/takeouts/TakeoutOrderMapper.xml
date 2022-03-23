@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.balawo.moon_mall.mapper.takeouts.TakeoutOrderMapper">
+
+    <resultMap id="baseTakeoutOrderMap" type="com.balawo.moon_mall.model.takeout.TakeoutOrder">
+        <!--id为主键-->
+        <id column="id" property="id"></id>
+        <!--column数据库中表的字段名称，property是对应类的属性-->
+        <result column="order_no" property="orderNo"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="amount" property="amount"></result>
+        <result column="status" property="status"></result>
+        <result column="pay_type" property="payType"></result>
+        <result column="delivery_type" property="deliveryType"></result>
+        <result column="realname" property="realname"></result>
+        <result column="address" property="address"></result>
+        <result column="phone" property="phone"></result>
+        <result column="region_code" property="regionCode"></result>
+        <result column="admin_remark" property="adminRemark"></result>
+        <result column="remark" property="remark"></result>
+        <result column="arrange_deliveryer_at" property="arrangeDeliveryerAt"/>
+        <result column="meal_finished_at" property="mealFinishedAt"/>
+        <result column="created_at" property="createdAt"></result>
+        <result column="updated_at" property="updatedAt"></result>
+
+        <association property="takeoutRestaurant" column="restaurant_id" javaType="TakeoutRestaurant">
+            <id column="r_id" property="id"/>
+            <result column="r_name" property="name"/>
+        </association>
+
+        <association property="user" column="user_id" javaType="User">
+            <id column="u_id" property="id"/>
+            <result column="u_nickname" property="nickname"/>
+        </association>
+
+        <association property="takeoutDeliveryer" column="deliveryer_id" javaType="TakeoutDeliveryer">
+            <id column="td_id" property="id"></id>
+            <result column="td_name" property="name"/>
+            <result column="td_mobile" property="mobile"/>
+            <result column="td_type" property="typee"/>
+        </association>
+
+        <collection property="takeoutOrderFood" column="order_id" ofType="TakeoutOrderFood">
+            <id column="of_id" property="id"></id>
+            <result column="of_order_id" property="orderId"></result>
+            <result column="of_name" property="name"/>
+            <result column="of_amount" property="amount"/>
+            <result column="of_count" property="count"/>
+            <result column="of_price" property="price"/>
+            <result column="of_package_count" property="packageCount"/>
+            <result column="of_package_amount" property="packageAmount"/>
+            <result column="of_status" property="status"/>
+            <result column="of_refund_num" property="refundNum"/>
+            <result column="of_refund_apply_at" property="refundApplyAt"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getTakeoutOrderById" resultMap="baseTakeoutOrderMap" parameterType="long">
+        select takeout_orders.*,
+        tof.id of_id,tof.order_id of_order_id, tof.name of_name,tof.amount of_amount,tof.count of_count,tof.price of_price, tof.package_amount of_package_amount,
+        tof.package_count of_package_amount, tof.status of_status,tof.refund_apply_at tof_refund_apply_at,tof.refund_num of_refund_num,
+        td.id td_id, td.name td_name,td.mobile td_mobile,td.typee td_type,
+        tr.id r_id, tr.name r_name
+        from takeout_orders
+        left join takeout_deliveryers td on td.id = takeout_orders.deliveryer_id
+        left join takeout_order_foods tof on tof.order_id = takeout_orders.id
+        left join takeout_restaurants tr on tr.id = takeout_orders.restaurant_id
+
+        where takeout_orders.id = #{id}
+    </select>
+
+    <select id="getAllTakeoutOrders" resultMap="baseTakeoutOrderMap">
+            select takeout_orders.*,users.id u_id,users.nickname u_nickname,takeout_restaurants.id r_id,takeout_restaurants.name  r_name  from takeout_orders
+             left join  users on users.id = takeout_orders.user_id
+             left join takeout_restaurants on takeout_restaurants.id = takeout_orders.restaurant_id
+             where takeout_orders.deleted_at is null order by takeout_orders.id desc
+    </select>
+</mapper>

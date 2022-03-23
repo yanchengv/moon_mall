@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.balawo.moon_mall.mapper.UserCardMapper">
+    <resultMap id="baseUserCardMap" type="com.balawo.moon_mall.model.common.UserCard">
+        <!--id为主键-->
+        <id column="id" property="id"></id>
+        <!--column数据库中表的字段名称，property是对应类的属性-->
+        <id column="user_id" property="userId"></id>
+        <id column="card_no" property="cardNo"></id>
+        <id column="card_type" property="cardType"></id>
+        <id column="card_level" property="cardLevel"></id>
+        <id column="status" property="status"></id>
+        <id column="realname" property="realname"></id>
+        <id column="lastname" property="lastname"></id>
+        <id column="sex" property="sex"></id>
+        <id column="id_type" property="idType"></id>
+        <id column="id_number" property="idNumber"></id>
+        <id column="mobile" property="mobile"></id>
+        <id column="birth" property="birth"></id>
+        <id column="mem_created_at" property="memCreatedAt"></id>
+        <id column="created_at" property="createdAt"></id>
+        <id column="deleted_at" property="deletedAt"></id>
+        <id column="lvyun_cardid" property="lvyunCardId"></id>
+        <id column="lvyun_memberid" property="lvyunMemberID"></id>
+        <id column="is_supplement_card" property="isSupplementCard"></id>
+        <id column="admin_id" property="adminId"></id>
+        <id column="qrcode_expire_at" property="qrcodeExpireAt"></id>
+        <id column="params_content" property="paramsContent"></id>
+    </resultMap>
+
+    <select id="getAllCardsByUserId" resultMap="baseUserCardMap" parameterType="Long">
+        select * from common_user_cards where user_id = #{userId} and deleted_at is null order by id asc
+    </select>
+</mapper>
