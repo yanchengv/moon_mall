@@ -1,11 +1,13 @@
 package com.balawo.moon_mall.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.balawo.moon_mall.mapper.takeouts.TakeoutOrderFoodTasteMapper;
 import com.balawo.moon_mall.mapper.takeouts.TakeoutOrderMapper;
 import com.balawo.moon_mall.model.takeout.TakeoutDeliveryer;
 import com.balawo.moon_mall.model.takeout.TakeoutOrder;
 import com.balawo.moon_mall.model.takeout.TakeoutOrderFood;
 import com.balawo.moon_mall.service.TakeoutOrderService;
+import com.balawo.moon_mall.service.takeouts.TakeoutOrderFoodTasteService;
 import com.balawo.moon_mall.utils.MyUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +24,11 @@ public class TakeoutOrderServiceImpl implements TakeoutOrderService {
 
     @Autowired
     private TakeoutOrderMapper takeoutOrderMapper;
+    @Autowired
+    private TakeoutOrderFoodTasteService foodTasteService;
+
+    @Autowired
+    private TakeoutOrderFoodTasteMapper taste;
 
     @Override
     public Map getTakeoutOrderById(long id) {
@@ -68,6 +75,7 @@ public class TakeoutOrderServiceImpl implements TakeoutOrderService {
         //订单餐点的信息
         List foodArr = new ArrayList();
         List<TakeoutOrderFood> foods = o.getTakeoutOrderFood();
+
         for(TakeoutOrderFood f : foods) {
             HashMap fm = new HashMap();
             fm.put("id",f.getId());
@@ -79,6 +87,7 @@ public class TakeoutOrderServiceImpl implements TakeoutOrderService {
             fm.put("package_amount",f.getPackageCount());
             fm.put("refund_price",f.getRefundPrice());
             fm.put("refund_num",f.getRefundNum());
+            fm.put("taste_names",foodTasteService.getOrderFoodTasteNameByfoodId(f.getId()));
             fm.put("refund_apply_at",DateUtil.format(f.getRefundApplyAt(),"yyyy-MM-dd HH:mm:ss"));
             foodArr.add(fm);
         }

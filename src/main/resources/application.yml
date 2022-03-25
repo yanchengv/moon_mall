@@ -2,10 +2,10 @@ spring:
   datasource:
     name: druidDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://rm-2zefzzv3s8d74dyfvho.pg.rds.aliyuncs.com:3432/arnaya_web_dev
+    url: jdbc:postgresql://rm-2zefzzv3s8d74dyfvho.pg.rds.aliyuncs.com:3432/xxx
     type: com.alibaba.druid.pool.DruidDataSource
-    username: xxx #用户名
-    password: xxx #密码
+    username: xx #用户名
+    password: xx #密码
 
     druid:
       initial-size: 5
