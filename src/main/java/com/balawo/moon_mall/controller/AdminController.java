@@ -1,8 +1,10 @@
 package com.balawo.moon_mall.controller;
 
 import com.balawo.moon_mall.model.Admin;
+import com.balawo.moon_mall.model.vo.takeout.TakeoutRestaurantVo;
 import com.balawo.moon_mall.service.AdminService;
 import com.balawo.moon_mall.utils.JsonResult;
+import com.balawo.moon_mall.utils.Pagination;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,10 @@ public class AdminController {
 
 
     @RequestMapping("/admins/getAllAdmins")
-    public JsonResult<PageInfo<Admin>> getAdminsList(@RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+    public JsonResult<Pagination<Admin>> getAdminsList(@RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
         PageInfo<Admin> responseData = adminService.getAllAdmins(page, pageSize);
-        return JsonResult.success(responseData);
+        Pagination adminPageInfo = Pagination.initPage(responseData);
+        return JsonResult.success(adminPageInfo);
     }
 
     @RequestMapping("/admins/update")

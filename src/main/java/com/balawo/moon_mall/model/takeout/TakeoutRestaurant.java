@@ -1,6 +1,8 @@
 package com.balawo.moon_mall.model.takeout;
 
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class TakeoutRestaurant {
 
@@ -59,6 +61,15 @@ public class TakeoutRestaurant {
   private String takeFoodDate;
   private long dinnerType;
   private long dinnerPayType;
+
+  public static Map<Integer,String> Status;
+
+  static {
+    Status = new HashMap();
+    Status.put(0,"上架");
+    Status.put(1,"下架");
+  }
+
 
 
   public long getId() {

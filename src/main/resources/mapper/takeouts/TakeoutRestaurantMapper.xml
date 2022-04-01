@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.balawo.moon_mall.mapper.takeouts.TakeoutRestaurantMapper">
+
+    <resultMap id="baseTakeoutRestaurantMap" type="com.balawo.moon_mall.model.takeout.TakeoutRestaurant">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"/>
+        <result column="sort" property="sort"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="status" property="status"/>
+        <result column="delivery_fastest_time" property="deliveryFastestTime"/>
+        <result column="delivery_slowest_time" property="deliverySlowestTime"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="list_img" property="listImg"/>
+        <result column="detail_img" property="detailImg"/>
+        <result column="created_at" property="createdAt"/>
+
+    </resultMap>
+
+    <select id="getRestaurantList" resultMap="baseTakeoutRestaurantMap">
+        select * from takeout_restaurants where deleted_at is null order by sort,id desc
+
+    </select>
+
+    <select id="getRestaurantById" resultMap="baseTakeoutRestaurantMap" parameterType="long">
+        select * from takeout_restaurants where id = #{id} and deleted_at is null
+    </select>
+
+</mapper>

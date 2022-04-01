@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class MyUtils {
     //支付方式
-    public static Map PayTypes;
+    public static Map<Integer,String> PayTypes;
     //所属城市
-    public static Map RegionCode;
+    public static Map<String,String> RegionCode;
     static{
 
         PayTypes = new HashMap();

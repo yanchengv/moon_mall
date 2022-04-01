@@ -1,13 +1,13 @@
 package com.balawo.moon_mall.controller.takeouts;
 
 import com.balawo.moon_mall.model.takeout.TakeoutOrder;
-import com.balawo.moon_mall.service.TakeoutOrderService;
+import com.balawo.moon_mall.service.takeouts.TakeoutOrderService;
 import com.balawo.moon_mall.utils.JsonResult;
+import com.balawo.moon_mall.utils.Pagination;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -25,9 +25,10 @@ public class TakeoutOrderController {
     }
 
     @RequestMapping("index")
-    public JsonResult<PageInfo<TakeoutOrder>> getAllOrders(@RequestParam(value = "page",defaultValue = "1") Integer page,@RequestParam(value = "limit",defaultValue = "30") Integer limit){
+    public JsonResult<Pagination<TakeoutOrder>> getAllOrders(@RequestParam(value = "page",defaultValue = "1") Integer page,@RequestParam(value = "limit",defaultValue = "30") Integer limit){
         PageInfo<TakeoutOrder> orders = orderService.getAllTakeoutOrders(page,limit);
-        return JsonResult.success(orders);
+        Pagination ordersPage = Pagination.initPage(orders);
+        return JsonResult.success(ordersPage);
     }
 
 

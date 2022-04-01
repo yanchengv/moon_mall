@@ -5,6 +5,7 @@ import com.balawo.moon_mall.model.common.UserCard;
 import com.balawo.moon_mall.service.UserCardService;
 import com.balawo.moon_mall.service.UserService;
 import com.balawo.moon_mall.utils.JsonResult;
+import com.balawo.moon_mall.utils.Pagination;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +27,10 @@ public class UserController {
     private UserCardService userCardService;
 
     @RequestMapping("/users/getAllUsers")
-    public JsonResult<PageInfo<User>> getAllUsers(@RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+    public JsonResult<Pagination<User>> getAllUsers(@RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
         PageInfo<User> userLists = userService.getAllUsers(page, pageSize);
-        return JsonResult.success(userLists);
+        Pagination userPage = Pagination.initPage(userLists);
+        return JsonResult.success(userPage);
     }
 
     @RequestMapping(value = "/users/getUserDetails", method = RequestMethod.GET)

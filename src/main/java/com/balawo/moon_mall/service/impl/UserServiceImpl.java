@@ -24,9 +24,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo<User> getAllUsers(Integer page, Integer limit) {
+        // 1. 开启分页
         PageHelper.startPage(page,limit);
+        // 2. 从数据库中查询出
         List<User> userList = userMapper.getAllUsers();
-        //用PageInfo对结果进行包装
+        //用PageInfo对结果进行包装，把list到PageInfo对象中自动分页
         PageInfo<User> userPages = new PageInfo(userList);
 
         return userPages;
