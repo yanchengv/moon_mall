@@ -19,7 +19,8 @@ public class TakeoutRestaurantServiceImpl implements TakeoutRestaurantService {
 
     @Override
     public TakeoutRestaurant getRestaurantInfoById(long id) {
-        return null;
+        TakeoutRestaurant r = restaurantMapper.getTakeoutRestaurantById(id);
+        return r;
     }
 
     @Override
@@ -32,5 +33,11 @@ public class TakeoutRestaurantServiceImpl implements TakeoutRestaurantService {
         PageInfo restaurantsPage = new PageInfo(restaurants);
 
         return restaurantsPage;
+    }
+
+    @Override
+    public Boolean updateRestaurant(TakeoutRestaurant takeoutRestaurant) {
+        Boolean flag = restaurantMapper.updateTakeoutRestaurantById(takeoutRestaurant);
+        return flag;
     }
 }

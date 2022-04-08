@@ -7,4 +7,5 @@ public interface TakeoutRestaurantService {
 
     TakeoutRestaurant  getRestaurantInfoById(long id);
     PageInfo<TakeoutRestaurant> getRestaurantList(Integer page , Integer limit);
+    Boolean updateRestaurant( TakeoutRestaurant takeoutRestaurant);
 }

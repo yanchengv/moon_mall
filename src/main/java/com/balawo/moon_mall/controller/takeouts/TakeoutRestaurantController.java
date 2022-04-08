@@ -11,9 +11,7 @@ import com.balawo.moon_mall.utils.Pagination;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +39,23 @@ public class TakeoutRestaurantController {
         restaurantPageInfo.setList(rVoList);
         Pagination<TakeoutRestaurantVo> my = Pagination.initPage(restaurantPageInfo);
         return JsonResult.success(my);
+    }
+
+    @RequestMapping("show")
+    public JsonResult<TakeoutRestaurantVo> show (long id){
+        TakeoutRestaurantVo tro = new TakeoutRestaurantVo();
+        TakeoutRestaurant trs = takeoutRestaurantService.getRestaurantInfoById(id);
+        BeanUtils.copyProperties(trs,tro);
+        return JsonResult.success(tro);
+    }
+
+    @PostMapping("update")
+    public JsonResult update(@RequestBody TakeoutRestaurantVo trvo){
+        TakeoutRestaurant tr = new TakeoutRestaurant();
+        BeanUtils.copyProperties(trvo,tr);
+        tr.setId(trvo.getId());
+        takeoutRestaurantService.updateRestaurant(tr);
+        return JsonResult.success(trvo);
     }
 
 }

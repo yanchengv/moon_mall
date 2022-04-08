@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface TakeoutRestaurantMapper {
     List<TakeoutRestaurant> getRestaurantList();
+    TakeoutRestaurant getTakeoutRestaurantById(long id);
+    boolean updateTakeoutRestaurantById(TakeoutRestaurant takeoutRestaurant);
 }

@@ -8,6 +8,8 @@
         <result column="sort" property="sort"/>
         <result column="department_id" property="departmentId"/>
         <result column="status" property="status"/>
+        <result column="phone" property="phone"/>
+        <result column="pay_type" property="payType"/>
         <result column="delivery_fastest_time" property="deliveryFastestTime"/>
         <result column="delivery_slowest_time" property="deliverySlowestTime"/>
         <result column="region_code" property="regionCode"/>
@@ -22,8 +24,43 @@
 
     </select>
 
-    <select id="getRestaurantById" resultMap="baseTakeoutRestaurantMap" parameterType="long">
+    <select id="getTakeoutRestaurantById" resultMap="baseTakeoutRestaurantMap" parameterType="long">
         select * from takeout_restaurants where id = #{id} and deleted_at is null
     </select>
+
+    <update id="updateTakeoutRestaurantById" parameterType="com.balawo.moon_mall.model.takeout.TakeoutRestaurant">
+        update takeout_restaurants
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+
+            <if test="deliveryFastestTime != null">
+                delivery_fastest_time = #{deliveryFastestTime},
+            </if>
+
+            <if test="deliverySlowestTime != null">
+                delivery_slowest_time = #{deliverySlowestTime},
+            </if>
+
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+
+            <if test="regionCode != null">
+                region_code = #{regionCode},
+            </if>
+
+            <if test="payType != null">
+                pay_type = #{payType},
+            </if>
+
+            updated_at = now(),
+        </set>
+        where id = #{id}
+    </update>
 
 </mapper>

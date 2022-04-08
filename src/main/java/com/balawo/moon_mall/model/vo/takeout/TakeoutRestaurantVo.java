@@ -14,6 +14,8 @@ public class TakeoutRestaurantVo {
   private long status;
   private String statusZh;
   private long sort;
+  private String payType;
+  private long departmentId;
   private long deliveryFastestTime;
   private long deliverySlowestTime;
   private String regionCode;
