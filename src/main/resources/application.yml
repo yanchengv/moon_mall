@@ -2,10 +2,10 @@ spring:
   datasource:
     name: druidDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://rm-2zefzzv3s8d74dyfvho.pg.rds.aliyuncs.com:3432/xxx
+    url: jdbc:postgresql://rm-2zefzzv3s8d74dyfvho.pg.rds.aliyuncs.com:3432/xx
     type: com.alibaba.druid.pool.DruidDataSource
-    username: xx #用户名
-    password: xx #密码
+    username: username #用户名
+    password: password #密码
 
     druid:
       initial-size: 5
@@ -28,7 +28,11 @@ spring:
     time-zone: GMT+8
 logging:
   level:
-      web: debug #打印请求日志
+    web: debug #打印请求日志
+    org.zalando.logbook: TRACE #logbook日志记录器必须配置为trace才能记录请求和响应参数.
+  file:
+    path: log #输出的日志文件
+
 mybatis:
   mapper-locations:
     - classpath*:mapper/*Mapper.xml
@@ -42,4 +46,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+
 

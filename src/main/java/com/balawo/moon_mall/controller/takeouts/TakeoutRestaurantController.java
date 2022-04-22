@@ -2,6 +2,7 @@ package com.balawo.moon_mall.controller.takeouts;
 
 
 import cn.hutool.core.date.DateUtil;
+import com.balawo.moon_mall.model.common.AppRegion;
 import com.balawo.moon_mall.model.takeout.TakeoutRestaurant;
 import com.balawo.moon_mall.model.vo.takeout.TakeoutRestaurantVo;
 import com.balawo.moon_mall.service.takeouts.TakeoutRestaurantService;
@@ -46,6 +47,7 @@ public class TakeoutRestaurantController {
         TakeoutRestaurantVo tro = new TakeoutRestaurantVo();
         TakeoutRestaurant trs = takeoutRestaurantService.getRestaurantInfoById(id);
         BeanUtils.copyProperties(trs,tro);
+        tro.setAppRegionList(AppRegion.getAppRegionMapList());
         return JsonResult.success(tro);
     }
 
