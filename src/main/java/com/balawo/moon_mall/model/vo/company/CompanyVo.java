@@ -16,7 +16,6 @@ public class CompanyVo {
   private long id;
   private String name;
 
-  public List<DepartmentVo> departmentList;
 
 
 }

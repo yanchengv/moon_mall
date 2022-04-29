@@ -20,6 +20,7 @@ public class TakeoutRestaurantVo {
   private String statusZh;
   private long sort;
   private String payType;
+  private long companyId;
   private long departmentId;
   private long deliveryFastestTime;
   private long deliverySlowestTime;

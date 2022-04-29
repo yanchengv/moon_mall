@@ -21,4 +21,14 @@ public interface DepartmentMapper {
     })
     @Select("select * from departments where company_id=#{companyId} and deleted_at is null order by id asc")
     public List<Department> getDeptListByCompanyId(long companyId);
+
+    @Results(id = "getDeptInfoByIdMapper",value={
+            @Result(column = "id",property = "id",id = true),
+            @Result(column = "company_id",property = "companyId"),
+            @Result(column = "name",property = "name"),
+            @Result(column = "status",property = "status"),
+            @Result(column = "created_at",property = "createdAt")
+    })
+    @Select("select * from departments where id = #{id}")
+    public Department getDeptInfoById(long deptId);
 }
